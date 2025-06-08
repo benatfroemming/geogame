@@ -139,7 +139,7 @@ const styles = {
     color: '#1a202c',
   },
   header: {
-    position: 'sticky', // ✅ keep only one
+    position: 'sticky', 
     top: 0,
     backgroundColor: '#fff',
     display: 'flex',

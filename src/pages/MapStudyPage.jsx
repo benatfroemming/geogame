@@ -13,7 +13,7 @@ const MapStudyPage = () => {
   }, []);
 
   return (
-    <div style={{ position: 'relative', height: '100vh', backgroundColor: '#19181B' }}>
+    <div style={{ position: 'relative', height: '100vh' }}>
       <MapView onCountrySelect={handleCountrySelect} />
       <FlagDisplay countryCode={selectedCountryCode} />
       <NameDisplay countryName={selectedCountryName} />

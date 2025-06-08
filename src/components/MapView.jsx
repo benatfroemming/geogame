@@ -19,6 +19,7 @@ const MapView = ({ onCountrySelect}) => {
       style: lightTile,
       center: [0, 0],
       zoom: 2,
+      minZoom: 2,
       antialias: true
     });
 
