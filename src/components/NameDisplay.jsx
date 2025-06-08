@@ -14,7 +14,6 @@ function NameDisplay({ countryName }) {
     borderRadius: '6px',
     boxShadow: '0 1px 6px rgba(0, 0, 0, 0.15)',
     fontSize: '2px',
-    // fontWeight: 500,
     color: '#333',
     zIndex: 1,
     }}>

@@ -1,92 +1,243 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const secondSectionRef = useRef(null);
+
+  const navItems = [
+    { label: 'Home', path: '/', scrollTo: null },
+    { label: 'Study', path: '/map', scrollTo: null },
+    { label: 'Play', path: null, scrollTo: 'secondSection' }, // Scroll instead of navigate
+    { label: 'About', path: '/about', scrollTo: null },
+  ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) setMenuOpen(false);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Scroll to second section
+  const scrollToSection = () => {
+    if (secondSectionRef.current) {
+      secondSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (item) => {
+    setMenuOpen(false);
+    if (item.scrollTo === 'secondSection') {
+      scrollToSection();
+    } else if (item.path) {
+      navigate(item.path);
+    }
+  };
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#fff',
-        fontFamily: 'system-ui, sans-serif',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {/* Navbar */}
-      <nav
-        style={{
-          padding: '1rem 2rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <img
-          src={`/geogame/map-marker.png`}
-          alt="Lurmap Logo"
-          style={{
-            width: '40px',          // or adjust size as needed
-            height: 'auto',
-            marginRight: '0.5rem',
-          }}
-        />
-        <div style={{ display: 'flex', gap: '1.5rem' }}>
-          <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#1a202c', cursor: 'pointer' }}>Home</button>
-          <button onClick={() => navigate('/map')} style={{ background: 'none', border: 'none', color: '#1a202c', cursor: 'pointer' }}>Study</button>
-          <button onClick={() => navigate('/play')} style={{ background: 'none', border: 'none', color: '#1a202c', cursor: 'pointer' }}>Play</button>
-          <button onClick={() => navigate('/about')} style={{ background: 'none', border: 'none', color: '#1a202c', cursor: 'pointer' }}>About</button>
-        </div>
-      </nav>
+    <div style={styles.wrapper}>
+      {/* Header */}
+      <header style={isMobile ? styles.headerMobile : styles.header}>
+        <div style={styles.logo}>Lurmap</div>
 
-      {/* Content */}
-      <main
-        style={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2rem',
-          textAlign: 'center',
-          boxSizing: 'border-box',
-          maxWidth: '600px',
-          margin: '0 auto',
-          width: '100%',
-        }}
-      >
+        {isMobile ? (
+          <>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={styles.faHamburger}
+              aria-label="Toggle menu"
+            >
+              <FontAwesomeIcon icon={faBars} size="lg" />
+            </button>
+            {menuOpen && (
+              <nav style={styles.mobileNav}>
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item)}
+                    style={styles.navButton}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#ebf8ff')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+            )}
+          </>
+        ) : (
+          <nav style={styles.desktopNav}>
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNavClick(item)}
+                style={styles.navButton}
+                onMouseEnter={e => (e.currentTarget.style.color = '#007bff')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#1a202c')}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        )}
+      </header>
 
-        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1rem', color: '#1a202c' }}>
-          Welcome to Lurmap
-        </h1>
-        <p style={{ marginBottom: '2rem', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', color: '#4a5568' }}>
-          Bringing geography games into the modern era.
-        </p>
-        {/* Image */}
-        <img
-          src={`/geogame/globe.png`} 
-          alt="World Map"
-          style={{
-            maxWidth: '100px',
-            height: 'auto',
-            border: 'black',
-          }}
-        />
+      {/* Main Section */}
+      <main style={styles.main}>
+        <h1 style={styles.title}>Welcome to Lurmap</h1>
+        <p style={styles.subtitle}>Bringing map games into the modern era.</p>
+        <button onClick={scrollToSection} style={styles.ctaButton}>
+          Start Playing
+        </button>
       </main>
+
+      {/* Second Section */}
+      <section ref={secondSectionRef} style={styles.secondSection}>
+        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Play Section</h2>
+        <p style={{ color: '#ddd', maxWidth: '600px', margin: '0 auto' }}>
+          This is the play area! You can add your game components here later.
+        </p>
+      </section>
+
+      {/* Footer Section */}
+      <footer style={{
+        backgroundColor: 'white',
+        textAlign: 'center',
+        padding: '1rem 2rem',
+        fontSize: '0.9rem',
+        color: 'black',
+        marginTop: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '30px',
+      }}>
+        <p style={{ margin: 0 }}>© {new Date().getFullYear()} Lurmap. All rights reserved.</p>
+      </footer>
+
     </div>
   );
 };
 
+const styles = {
+  wrapper: {
+    fontFamily: 'system-ui, sans-serif',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    color: '#1a202c',
+  },
+  header: {
+    position: 'sticky', // ✅ keep only one
+    top: 0,
+    backgroundColor: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 2rem',
+    borderBottom: '1px solid #e2e8f0',
+    zIndex: 10000,
+  },
+  headerMobile: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: '#fff',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 2rem',
+    borderBottom: '1px solid #e2e8f0',
+    position: 'sticky',
+    zIndex: 10000,
+  },
+  logo: {
+    fontWeight: 'bold',
+    fontSize: '1.25rem',
+  },
+  desktopNav: {
+    display: 'flex',
+    gap: '1.5rem',
+  },
+  mobileNav: {
+    position: 'absolute',
+    top: '100%',
+    right: '2rem',
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    padding: '0.5rem 1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    zIndex: 1000,
+  },
+  navButton: {
+    background: 'none',
+    border: 'none',
+    fontSize: '1rem',
+    color: '#1a202c',
+    cursor: 'pointer',
+    padding: '0.25rem 0.5rem',
+    textAlign: 'left',
+    transition: 'background-color 0.2s ease, color 0.2s ease',
+  },
+  faHamburger: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#1a202c',
+    fontSize: '1.5rem',
+    padding: 0,
+  },
+  main: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '4rem 2rem 6rem', // padding bottom for spacing from fixed header
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 'clamp(2rem, 5vw, 3rem)',
+    marginBottom: '1rem',
+    fontWeight: '600',
+  },
+  subtitle: {
+    marginBottom: '2rem',
+    fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+    color: '#4a5568',
+  },
+  ctaButton: {
+    backgroundColor: '#007bff',
+    color: '#ffffff',
+    border: 'none',
+    padding: '0.75rem 1.5rem',
+    borderRadius: '8px',
+    fontSize: '1rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  secondSection: {
+    backgroundColor: '#007bff',
+    padding: '6rem 2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    minHeight: '60vh',
+  },
+};
+
 export default HomePage;
-
-
-
-
-
-
-
-
-
-
