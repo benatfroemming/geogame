@@ -3,7 +3,8 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import countries from '../assets/osm-countries1.json';
-import protomap from '../assets/protomap.json'; // Or your preferred style
+import protomap from '../assets/protomap.json'; 
+import lightTile from '../assets/light_tile.json'; 
 
 const MapView = ({ onCountrySelect }) => {
   const mapContainer = useRef(null);
@@ -16,7 +17,7 @@ const MapView = ({ onCountrySelect }) => {
   useEffect(() => {
     const map = new maplibregl.Map({
       container: mapContainer.current,
-      style: protomap,
+      style: lightTile,
       center: [0, 0],
       zoom: 1,
       minZoom: 0.3,
