@@ -103,11 +103,53 @@ const HomePage = () => {
 
       {/* Second Section */}
       <section ref={secondSectionRef} style={styles.secondSection}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Play Section</h2>
-        <p style={{ color: '#ddd', maxWidth: '600px', margin: '0 auto' }}>
-          This is the play area! You can add your game components here later.
-        </p>
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            justifyContent: 'center',
+            marginTop: '2rem',
+          }}
+        >
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              style={{
+                width: '300px',
+                height: '300px',
+                backgroundColor: 'white',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '5px solid white',
+                transition: 'transform 0.2s ease-in-out',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              <img
+                src="/geogame/demo2.PNG"
+                alt={`Image ${i + 1}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
+              />
+            </div>
+          ))}
+        </div>
       </section>
+
+      {/* Main Section */}
+      <main style={styles.main}>
+        <p style={styles.subtitle}>Bringing map games into the modern era.</p>
+      </main>
+
 
       {/* Footer Section */}
       <footer style={{
@@ -159,7 +201,6 @@ const styles = {
     justifyContent: 'space-between',
     padding: '1rem 2rem',
     borderBottom: '1px solid #e2e8f0',
-    position: 'sticky',
     zIndex: 10000,
   },
   logo: {
@@ -232,11 +273,11 @@ const styles = {
   },
   secondSection: {
     backgroundColor: '#007bff',
-    padding: '6rem 2rem',
+    padding: '4rem 2rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    minHeight: '60vh',
+    height: 'auto'
   },
 };
 

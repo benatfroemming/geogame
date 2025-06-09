@@ -10,15 +10,15 @@ function NameDisplay({ countryName }) {
       left: '50%',
       transform: 'translateX(-50%)',
       backgroundColor: 'white',
-      padding: '0 20px',
-      borderRadius: '6px',
+      padding: '4px 10px', // reduced padding
+      borderRadius: '4px', // optional: smaller radius to match
       boxShadow: '0 1px 6px rgba(0, 0, 0, 0.15)',
-      fontSize: '18px',
+      fontSize: '16px',
       fontWeight: 'bold',
       color: '#333',
       zIndex: 1,
     }}>
-      <p>{countryName}</p>
+      {countryName}
     </div>
   );
 }

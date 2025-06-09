@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import countries from '../assets/osm-countries1.json';
-import lightTile from '../assets/light_tile.json';
 
-const MapView = ({ onCountrySelect}) => {
+import countries from '../assets/osm-countries1.json';
+import protomap from '../assets/protomap.json'; // Or your preferred style
+
+const MapView = ({ onCountrySelect }) => {
   const mapContainer = useRef(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,24 +14,20 @@ const MapView = ({ onCountrySelect}) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
-
     const map = new maplibregl.Map({
       container: mapContainer.current,
-      style: lightTile,
+      style: protomap,
       center: [0, 0],
-      zoom: 2,
-      minZoom: 2,
-      antialias: true
+      zoom: 1,
+      minZoom: 0.3,
+      antialias: true,
     });
 
     mapRef.current = map;
 
-    map.addControl(
-        new maplibregl.GlobeControl()
-    );
+    map.addControl(new maplibregl.GlobeControl());
 
     map.on('load', () => {
-
       map.addSource('countries', {
         type: 'geojson',
         data: countries,
@@ -42,13 +39,13 @@ const MapView = ({ onCountrySelect}) => {
         source: 'countries',
         layout: {
           'line-join': 'round',
-          'line-cap': 'round'
+          'line-cap': 'round',
         },
         paint: {
           'line-color': '#808080',
-          'line-width': 0.6,
-          'line-opacity': 0.5
-        }
+          'line-width': 0.4,
+          'line-opacity': 0.2,
+        },
       });
 
       map.addLayer({
@@ -56,21 +53,21 @@ const MapView = ({ onCountrySelect}) => {
         type: 'fill',
         source: 'countries',
         paint: {
-          "fill-color": [
-            "case",
-            ["boolean", ["feature-state", "selected"], false],
-            "#000000",
-            ["boolean", ["feature-state", "hover"], false],
-            "#000000",
-            "rgba(0,0,0,0)"
+          'fill-color': [
+            'case',
+            ['boolean', ['feature-state', 'selected'], false],
+            '#000000',
+            ['boolean', ['feature-state', 'hover'], false],
+            '#000000',
+            'rgba(0,0,0,0)',
           ],
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'selected'], false],
-            0.6,
+            0.5,
             ['boolean', ['feature-state', 'hover'], false],
-            0.3,
-            0
+            0.2,
+            0,
           ],
           'fill-outline-color': '#000000',
         },
@@ -104,7 +101,10 @@ const MapView = ({ onCountrySelect}) => {
           hoveredCountryIdRef.current !== null &&
           hoveredCountryIdRef.current !== selectedCountryIdRef.current
         ) {
-          map.setFeatureState({ source: 'countries', id: hoveredCountryIdRef.current }, { hover: false });
+          map.setFeatureState(
+            { source: 'countries', id: hoveredCountryIdRef.current },
+            { hover: false }
+          );
         }
         hoveredCountryIdRef.current = null;
       });
@@ -135,7 +135,6 @@ const MapView = ({ onCountrySelect}) => {
     map.on('idle', () => setLoading(false));
 
     return () => {
-      console.log('Unmounting MapView');
       map.remove();
     };
   }, [onCountrySelect]);
@@ -145,12 +144,12 @@ const MapView = ({ onCountrySelect}) => {
       {loading && (
         <div
           style={{
-            position: 'fixed',
+            position: 'absolute',
             display: 'block',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            zIndex: 1000,
+            zIndex: 5,
             width: 40,
             height: 40,
             border: '4px solid #00aaff',
@@ -160,7 +159,16 @@ const MapView = ({ onCountrySelect}) => {
           }}
         />
       )}
-      <div ref={mapContainer} style={{ height: '100vh', width: '100vw' }} />
+      <div
+        ref={mapContainer}
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      />
       <style>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -172,3 +180,4 @@ const MapView = ({ onCountrySelect}) => {
 };
 
 export default MapView;
+
