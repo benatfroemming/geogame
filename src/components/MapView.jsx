@@ -17,7 +17,7 @@ const MapView = ({ onCountrySelect }) => {
   useEffect(() => {
     const map = new maplibregl.Map({
       container: mapContainer.current,
-      style: lightTile,
+      style: protomap,
       center: [0, 0],
       zoom: 1,
       minZoom: 0.3,
@@ -44,8 +44,8 @@ const MapView = ({ onCountrySelect }) => {
         },
         paint: {
           'line-color': '#808080',
-          'line-width': 0.4,
-          'line-opacity': 0.2,
+          'line-width': 0.6,
+          'line-opacity': 0.3,
         },
       });
 

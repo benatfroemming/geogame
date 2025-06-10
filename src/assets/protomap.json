@@ -18,42 +18,38 @@
     {
       "id": "background",
       "type": "background",
-      "layout": {"visibility": "none"},
-      "paint": {"background-color": "rgba(255, 255, 255, 1)"}
+      "paint": {"background-color": "#cccccc"}
     },
     {
       "id": "earth",
       "type": "fill",
       "source": "protomaps",
       "source-layer": "earth",
-      "minzoom": 0,
       "filter": ["==", "$type", "Polygon"],
-      "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(225, 225, 225, 1)"}
+      "paint": {"fill-color": "#e2dfda"}
     },
     {
       "id": "landcover",
       "type": "fill",
       "source": "protomaps",
       "source-layer": "landcover",
-      "layout": {"visibility": "visible"},
       "paint": {
         "fill-color": [
           "match",
           ["get", "kind"],
           "grassland",
-          "rgba(210, 239, 207, 1)",
+          "#c6e6b2",
           "barren",
-          "rgba(255, 243, 215, 1)",
+          "#f3ebc3",
           "urban_area",
-          "rgba(230, 230, 230, 1)",
+          "#e9e3d3",
           "farmland",
-          "rgba(216, 239, 210, 1)",
+          "#e3ecc5",
           "glacier",
           "rgba(255, 255, 255, 1)",
           "scrub",
-          "rgba(234, 239, 210, 1)",
-          "rgba(196, 231, 210, 1)"
+          "#badca8",
+          "#abd9ab"
         ],
         "fill-opacity": ["interpolate", ["linear"], ["zoom"], 5, 1, 7, 0]
       }
@@ -156,7 +152,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["in", "kind", "school", "university", "college"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#e4ded7"}
     },
     {
@@ -165,7 +160,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["in", "kind", "beach"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#e8e4d0"}
     },
     {
@@ -174,7 +168,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["in", "kind", "zoo"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#c6dcdc"}
     },
     {
@@ -183,7 +176,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["in", "kind", "aerodrome"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#dadbdf"}
     },
     {
@@ -192,7 +184,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["==", "kind_detail", "runway"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e9e9ed",
         "line-width": [
@@ -215,7 +206,6 @@
       "source-layer": "roads",
       "minzoom": 13,
       "filter": ["==", "kind_detail", "taxiway"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e9e9ed",
         "line-width": [
@@ -237,7 +227,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["any", ["in", "kind", "runway", "taxiway"]],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#e9e9ed"}
     },
     {
@@ -246,7 +235,7 @@
       "source": "protomaps",
       "source-layer": "water",
       "filter": ["==", "$type", "Polygon"],
-      "paint": {"fill-color": "#80deea"}
+      "paint": {"fill-color": "#85CBFA"}
     },
     {
       "id": "water_stream",
@@ -255,7 +244,7 @@
       "source-layer": "water",
       "minzoom": 14,
       "filter": ["in", "kind", "stream"],
-      "paint": {"line-color": "#80deea", "line-width": 0.5}
+      "paint": {"line-color": "#85CBFA", "line-width": 0.5}
     },
     {
       "id": "water_river",
@@ -265,7 +254,7 @@
       "minzoom": 9,
       "filter": ["in", "kind", "river"],
       "paint": {
-        "line-color": "#80deea",
+        "line-color": "#85CBFA",
         "line-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -285,7 +274,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["==", "kind", "pedestrian"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#e3e0d4"}
     },
     {
@@ -294,7 +282,6 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["==", "kind", "pier"],
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#e0e0e0"}
     },
     {
@@ -303,7 +290,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["in", "kind", "other", "path"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -323,7 +309,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["==", "kind", "minor_road"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-dasharray": [3, 2],
@@ -357,7 +342,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["has", "is_link"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-dasharray": [3, 2],
@@ -394,7 +378,6 @@
         ["!has", "is_bridge"],
         ["==", "kind", "major_road"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-dasharray": [3, 2],
@@ -432,7 +415,6 @@
         ["==", "kind", "highway"],
         ["!has", "is_link"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-dasharray": [6, 0.5],
@@ -466,7 +448,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["in", "kind", "other", "path"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#d5d5d5",
         "line-dasharray": [4.5, 0.5],
@@ -487,7 +468,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["==", "kind", "minor_road"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#d5d5d5",
         "line-width": [
@@ -511,7 +491,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["has", "is_link"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#d5d5d5",
         "line-width": [
@@ -533,7 +512,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["==", "kind", "major_road"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#d5d5d5",
         "line-width": [
@@ -562,7 +540,6 @@
         ["==", ["get", "kind"], "highway"],
         ["!", ["has", "is_link"]]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#d5d5d5",
         "line-width": [
@@ -587,7 +564,6 @@
       "type": "fill",
       "source": "protomaps",
       "source-layer": "buildings",
-      "layout": {"visibility": "visible"},
       "paint": {"fill-color": "#cccccc", "fill-opacity": 0.5}
     },
     {
@@ -596,7 +572,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["==", "kind_detail", "pier"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-width": [
@@ -625,7 +600,6 @@
         ["==", "kind", "minor_road"],
         ["==", "kind_detail", "service"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -660,7 +634,6 @@
         ["==", "kind", "minor_road"],
         ["!=", "kind_detail", "service"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -694,7 +667,6 @@
       "source-layer": "roads",
       "minzoom": 13,
       "filter": ["has", "is_link"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -731,7 +703,6 @@
         ["!has", "is_bridge"],
         ["==", "kind", "major_road"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -771,7 +742,6 @@
         ["==", "kind", "highway"],
         ["!has", "is_link"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -810,7 +780,6 @@
         ["in", "kind", "other", "path"],
         ["!=", "kind_detail", "pier"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ebebeb",
         "line-dasharray": [3, 1],
@@ -831,7 +800,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["has", "is_link"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ffffff",
         "line-width": [
@@ -859,7 +827,6 @@
         ["==", "kind", "minor_road"],
         ["==", "kind_detail", "service"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ebebeb",
         "line-width": [
@@ -885,7 +852,6 @@
         ["==", "kind", "minor_road"],
         ["!=", "kind_detail", "service"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": [
           "interpolate",
@@ -923,7 +889,6 @@
         ["!has", "is_bridge"],
         ["==", "kind", "major_road"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -959,7 +924,6 @@
         ["!has", "is_bridge"],
         ["==", "kind", "major_road"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ffffff",
         "line-width": [
@@ -990,7 +954,6 @@
         ["==", "kind", "highway"],
         ["!has", "is_link"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -1027,9 +990,8 @@
         ["==", "kind", "highway"],
         ["!has", "is_link"]
       ],
-      "layout": {"visibility": "visible"},
       "paint": {
-        "line-color": "rgba(255, 255, 255, 1)",
+        "line-color": "#ffffff",
         "line-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -1053,7 +1015,6 @@
       "source": "protomaps",
       "source-layer": "roads",
       "filter": ["==", "kind", "rail"],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-dasharray": [0.3, 0.75],
         "line-opacity": 0.5,
@@ -1116,7 +1077,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["in", "kind", "other", "path"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -1137,7 +1097,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["has", "is_link"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -1169,7 +1128,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["==", "kind", "minor_road"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -1203,7 +1161,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["==", "kind", "major_road"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#e0e0e0",
         "line-gap-width": [
@@ -1235,7 +1192,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["in", "kind", "other", "path"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ebebeb",
         "line-dasharray": [2, 1],
@@ -1251,38 +1207,12 @@
       }
     },
     {
-      "id": "roads_bridges_minor-copy",
-      "type": "line",
-      "source": "protomaps",
-      "source-layer": "roads",
-      "minzoom": 12,
-      "filter": ["all", ["has", "is_bridge"], ["==", "kind", "minor_road"]],
-      "layout": {"visibility": "visible"},
-      "paint": {
-        "line-color": "#ffffff",
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.6],
-          ["zoom"],
-          11,
-          0,
-          12.5,
-          0.5,
-          15,
-          2,
-          18,
-          11
-        ]
-      }
-    },
-    {
       "id": "roads_bridges_minor",
       "type": "line",
       "source": "protomaps",
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["==", "kind", "minor_road"]],
-      "layout": {"visibility": "none"},
       "paint": {
         "line-color": "#ffffff",
         "line-width": [
@@ -1307,7 +1237,6 @@
       "source-layer": "roads",
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["has", "is_link"]],
-      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "#ffffff",
         "line-width": [
@@ -1719,6 +1648,310 @@
       "paint": {
         "text-color": "#728dd4",
         "text-halo-color": "#80deea",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "roads_labels_minor-copy",
+      "type": "symbol",
+      "source": "protomaps",
+      "source-layer": "roads",
+      "minzoom": 15,
+      "filter": ["in", "kind", "minor_road", "other", "path"],
+      "layout": {
+        "symbol-sort-key": ["get", "min_zoom"],
+        "symbol-placement": "line",
+        "text-font": ["Noto Sans Regular"],
+        "text-field": [
+          "case",
+          [
+            "all",
+            ["any", ["has", "name"], ["has", "pgf:name"]],
+            ["!", ["any", ["has", "name2"], ["has", "pgf:name2"]]],
+            ["!", ["any", ["has", "name3"], ["has", "pgf:name3"]]]
+          ],
+          [
+            "case",
+            ["has", "script"],
+            [
+              "case",
+              [
+                "any",
+                ["is-supported-script", ["get", "name"]],
+                ["has", "pgf:name"]
+              ],
+              [
+                "format",
+                ["coalesce", ["get", "name:en"], ["get", "name:en"]],
+                {},
+                "\n",
+                {},
+                [
+                  "case",
+                  [
+                    "all",
+                    ["!", ["has", "name:en"]],
+                    ["has", "name:en"],
+                    ["!", ["has", "script"]]
+                  ],
+                  "",
+                  ["coalesce", ["get", "pgf:name"], ["get", "name"]]
+                ],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ],
+              ["get", "name:en"]
+            ],
+            [
+              "format",
+              [
+                "coalesce",
+                ["get", "name:en"],
+                ["get", "pgf:name"],
+                ["get", "name"]
+              ],
+              {}
+            ]
+          ],
+          [
+            "all",
+            ["any", ["has", "name"], ["has", "pgf:name"]],
+            ["any", ["has", "name2"], ["has", "pgf:name2"]],
+            ["!", ["any", ["has", "name3"], ["has", "pgf:name3"]]]
+          ],
+          [
+            "case",
+            ["all", ["has", "script"], ["has", "script2"]],
+            [
+              "format",
+              ["get", "name:en"],
+              {},
+              "\n",
+              {},
+              ["coalesce", ["get", "pgf:name"], ["get", "name"]],
+              {
+                "text-font": [
+                  "case",
+                  ["==", ["get", "script"], "Devanagari"],
+                  ["literal", ["Noto Sans Devanagari Regular v1"]],
+                  ["literal", ["Noto Sans Regular"]]
+                ]
+              },
+              "\n",
+              {},
+              ["coalesce", ["get", "pgf:name2"], ["get", "name2"]],
+              {
+                "text-font": [
+                  "case",
+                  ["==", ["get", "script2"], "Devanagari"],
+                  ["literal", ["Noto Sans Devanagari Regular v1"]],
+                  ["literal", ["Noto Sans Regular"]]
+                ]
+              }
+            ],
+            [
+              "case",
+              ["has", "script2"],
+              [
+                "format",
+                [
+                  "coalesce",
+                  ["get", "name:en"],
+                  ["get", "pgf:name"],
+                  ["get", "name"]
+                ],
+                {},
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name2"], ["get", "name2"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script2"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ],
+              [
+                "format",
+                [
+                  "coalesce",
+                  ["get", "name:en"],
+                  ["get", "pgf:name2"],
+                  ["get", "name2"]
+                ],
+                {},
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name"], ["get", "name"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ]
+            ]
+          ],
+          [
+            "case",
+            ["all", ["has", "script"], ["has", "script2"], ["has", "script3"]],
+            [
+              "format",
+              ["get", "name:en"],
+              {},
+              "\n",
+              {},
+              ["coalesce", ["get", "pgf:name"], ["get", "name"]],
+              {
+                "text-font": [
+                  "case",
+                  ["==", ["get", "script"], "Devanagari"],
+                  ["literal", ["Noto Sans Devanagari Regular v1"]],
+                  ["literal", ["Noto Sans Regular"]]
+                ]
+              },
+              "\n",
+              {},
+              ["coalesce", ["get", "pgf:name2"], ["get", "name2"]],
+              {
+                "text-font": [
+                  "case",
+                  ["==", ["get", "script2"], "Devanagari"],
+                  ["literal", ["Noto Sans Devanagari Regular v1"]],
+                  ["literal", ["Noto Sans Regular"]]
+                ]
+              },
+              "\n",
+              {},
+              ["coalesce", ["get", "pgf:name3"], ["get", "name3"]],
+              {
+                "text-font": [
+                  "case",
+                  ["==", ["get", "script3"], "Devanagari"],
+                  ["literal", ["Noto Sans Devanagari Regular v1"]],
+                  ["literal", ["Noto Sans Regular"]]
+                ]
+              }
+            ],
+            [
+              "case",
+              ["!", ["has", "script"]],
+              [
+                "format",
+                [
+                  "coalesce",
+                  ["get", "name:en"],
+                  ["get", "pgf:name"],
+                  ["get", "name"]
+                ],
+                {},
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name2"], ["get", "name2"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script2"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                },
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name3"], ["get", "name3"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script3"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ],
+              ["!", ["has", "script2"]],
+              [
+                "format",
+                [
+                  "coalesce",
+                  ["get", "name:en"],
+                  ["get", "pgf:name2"],
+                  ["get", "name2"]
+                ],
+                {},
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name"], ["get", "name"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                },
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name3"], ["get", "name3"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script3"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ],
+              [
+                "format",
+                [
+                  "coalesce",
+                  ["get", "name:en"],
+                  ["get", "pgf:name3"],
+                  ["get", "name3"]
+                ],
+                {},
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name"], ["get", "name"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                },
+                "\n",
+                {},
+                ["coalesce", ["get", "pgf:name2"], ["get", "name2"]],
+                {
+                  "text-font": [
+                    "case",
+                    ["==", ["get", "script2"], "Devanagari"],
+                    ["literal", ["Noto Sans Devanagari Regular v1"]],
+                    ["literal", ["Noto Sans Regular"]]
+                  ]
+                }
+              ]
+            ]
+          ]
+        ],
+        "text-size": 12,
+        "visibility": "none"
+      },
+      "paint": {
+        "text-color": "#91888b",
+        "text-halo-color": "#ffffff",
         "text-halo-width": 1
       }
     },
@@ -4444,5 +4677,5 @@
       }
     }
   ],
-  "id": "ym3764m"
+  "id": "iz8ua7r"
 }
