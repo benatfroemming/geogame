@@ -12,9 +12,9 @@ const HomePage = () => {
 
   const navItems = [
     { label: 'Home', path: '/', scrollTo: null },
-    { label: 'Study', path: '/map', scrollTo: null },
-    { label: 'Play', path: null, scrollTo: 'secondSection' },
-    { label: 'About', path: '/about', scrollTo: null },
+    { label: 'Play', path: '/map', scrollTo: null },
+    { label: 'Guide', path: null, scrollTo: null },
+    { label: 'About', path: null, scrollTo: null },
   ];
 
   useEffect(() => {
